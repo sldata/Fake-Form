@@ -74,7 +74,7 @@ h1 {
 .progress-bar{
 	width: 0%;
 	background-color: royalblue;
-	transition: width .3s;
+	transition: width .6s;
 }
 
 .step {
