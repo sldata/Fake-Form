@@ -12,7 +12,7 @@ const handleNextBtn = () => {
 	if (currentStep > steps.length) {
 		currentStep = steps.length
 	}
-    handleProgressBar()
+	handleProgressBar()
 }
 const handlePrevBtn = () => {
 	currentStep--
@@ -20,24 +20,45 @@ const handlePrevBtn = () => {
 	if (currentStep < 1) {
 		currentStep = 1
 	}
-    handleProgressBar()
+	handleProgressBar()
 }
 
 const handleProgressBar = () => {
-    steps.forEach((step, index)=> {
-        if(index < currentStep){
-            step.classList.add('active-step')
+	steps.forEach((step, index) => {
+		if (index < currentStep) {
+			step.classList.add('active-step')
+		} else {
+			step.classList.remove('active-step')
+		}
+	})
+
+	const activeSteps = document.querySelectorAll('.active-step')
+	console.log(((activeSteps.length - 1) / (steps.length - 1)) * 100 + '%')
+	progressBar.style.width = ((activeSteps.length - 1) / (steps.length - 1)) * 100 + '%'
+
+	handleButtons()
+    handleFormPage()
+}
+const handleButtons = () => {
+	if (currentStep === 1) {
+		prevBtn.disabled = true
+	} else if (currentStep === steps.length) {
+		nextBtn.disabled = true
+	} else {
+		prevBtn.disabled = false
+		nextBtn.disabled = false
+	}
+}
+
+const handleFormPage = () => {
+    formPages.forEach(page => {
+        if(currentStep == page.dataset.number){
+            page.classList.add('active-page')
         } else{
-            step.classList.remove('active-step')
+            
+            page.classList.remove('active-page')
         }
     })
-
-    const activeSteps = document.querySelectorAll('.active-step')
-    console.log(((activeSteps.length -1) / (steps.length -1)) * 100 + '%');
-    progressBar.style.width = ((activeSteps.length -1) / (steps.length -1)) * 100 + '%'
-
-    
-
 }
 
 nextBtn.addEventListener('click', handleNextBtn)
